@@ -109,7 +109,7 @@ else:
         + may_inf
         + '</div><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;"><svg width="260" height="140" viewBox="0 0 80 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M40 22C40 22 28 4 18 4C8 4 2 12 2 22C2 32 8 40 18 40C28 40 40 22 40 22ZM40 22C40 22 52 40 62 40C72 40 78 32 78 22C78 12 72 4 62 4C52 4 40 22 40 22Z" stroke="rgba(210,100,120,0.75)" stroke-width="2.5" fill="none" stroke-dasharray="1000" stroke-dashoffset="1000" style="animation:infinityDraw 3s 5s ease forwards;"/></svg></div>'
         + '</div></div>'
-        + '<div class="divider-v" style="animation:fadeIn 1s 5.2s ease both;opacity:0;"></div>'
+        + '<div style="width:1px;height:160px;background:linear-gradient(to bottom,transparent,rgba(210,120,120,0.5),transparent);margin:0 auto;animation:fadeIn 1s 5.2s ease both;opacity:0;"></div>'
         + '<div class="final-section" style="animation:fadeUp 1.2s 5.4s ease both;opacity:0;">'
         + '<div class="final-message">No s&eacute; qu&eacute; va a pasar en el futuro.<br>No tengo esa respuesta ni pretendo tenerla.<br><br>Pero s&iacute; s&eacute; esto &mdash; con la misma certeza<br>con la que s&eacute; que el 20 de abril cambi&oacute; algo en m&iacute; &mdash;<br><br><em>quiero que est&eacute;s ah&iacute;.<br>Afrontando cada momento conmigo.<br>Los buenos, los dif&iacute;ciles, los que a&uacute;n no tienen nombre.</em><br><br>Eso es lo que s&eacute;.</div>'
         + '<div class="final-signature">Juan &#129293;</div>'
