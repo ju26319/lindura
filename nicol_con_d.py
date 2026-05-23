@@ -66,9 +66,9 @@ else:
         h += '</div></div>'
         return h
 
-    apr = build_cal("Abril", 2025, 1, 30, 20)
-    may = build_cal("Mayo", 2025, 3, 31, 22)
-    may_inf = build_cal("Mayo", 2025, 3, 31, 22, inf_day=22)
+    apr = build_cal("Abril", 2026, 1, 30, 20)
+    may = build_cal("Mayo", 2026, 3, 31, 22)
+    may_inf = build_cal("Mayo", 2026, 3, 31, 22, inf_day=22)
 
     p = '<div class="particles">'
     em = ["&#9825;","&#10022;","&middot;","&#9825;","&#10023;","&#9825;"]
