@@ -108,7 +108,7 @@ else:
         + '<div style="animation:fadeUp 1s 4.4s ease both;opacity:0;width:100%;max-width:480px;margin:0 auto 16px;"><div style="font-family:Cormorant Garamond,serif;font-size:11px;letter-spacing:5px;color:rgba(210,130,130,0.45);text-transform:uppercase;text-align:center;margin-bottom:18px;">Lo que viene</div>'
         + may_inf + '</div>'
         + '<div class="final-section" style="animation:fadeUp 1.2s 4.8s ease both;opacity:0;">'
-        + '<div class="final-message">No s&eacute; qu&eacute; va a pasar en el futuro.<br>No tengo esa respuesta ni pretendo tenerla.<br><br>Pero s&iacute; s&eacute; esto; con la misma certeza<br>con la que s&eacute; que el 20 de abril cambi&oacute; algo en m&iacute.;<br><br><em>quiero que est&eacute;s ah&iacute;.<br>Afrontando cada momento conmigo.<br>Los buenos, los dif&iacute;ciles, los que a&uacute;n no tienen nombre.</em><br><br>Eso es lo que s&eacute;.</div>'
+        + '<div class="final-message">No s&eacute; qu&eacute; va a pasar en el futuro.<br>No tengo esa respuesta ni pretendo tenerla.<br><br>Pero s&iacute; s&eacute; esto; con la misma certeza<br>con la que s&eacute; que el 20 de abril cambi&oacute; algo en m&iacute.<br><br><em>quiero que est&eacute;s ah&iacute;.<br>Afrontando cada momento conmigo.<br>Los buenos, los dif&iacute;ciles, los que a&uacute;n no tienen nombre.</em><br><br>Eso es lo que s&eacute;.</div>'
         + '<div class="final-signature">Juan &#129293;</div>'
         + '<div class="final-date">20 &middot; 04 &middot; 2025 &rarr; 22 &middot; 05 &middot; 2026 &middot; Popay&aacute;n</div>'
         + '</div>'
