@@ -145,38 +145,32 @@ if st.session_state.step == 0:
 
 # ── STEP 1: Button ──
 elif st.session_state.step == 1:
-    # Button FIRST - then CSS positions it fixed over the background
+    # Extra CSS to perfectly center the button
     st.markdown('''
     <style>
-    /* Make the button fixed centered on screen, above everything */
-    section[data-testid="stMain"] > div > div > div > div:nth-child(2) .stButton {
-        position:fixed;
-        bottom: 15vh;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 999;
-        width: auto;
-    }
+    /* Force full page centering for step 1 */
+    [data-testid="stMainBlockContainer"] { padding: 0 !important; }
     </style>
     ''', unsafe_allow_html=True)
-    if st.button("Abrir carta", key="carta_btn"):
-        st.session_state.step = 2
-        st.rerun()
     st.markdown('''
-    <div class="wrap" style="pointer-events:none;">
-      <div class="init-screen" style="justify-content:flex-start;padding-top:20vh;">
-        <div style="text-align:center;animation:fadeDown 1s ease forwards;">
-          <div class="date-badge" style="margin-bottom:14px;">22 &middot; 05 &middot; 2026</div>
-          <div class="title-main" style="font-size:clamp(40px,8vw,70px);">Para ti,</div>
-          <div class="title-sub" style="margin-top:10px;">Nicol con D <span class="heartbeat">&#129293;</span></div>
-          <div style="width:1px;height:50px;background:linear-gradient(to bottom,transparent,rgba(210,120,120,0.4),transparent);margin:28px auto;"></div>
-          <div style="font-family:Cormorant Garamond,serif;font-size:14px;font-style:italic;color:rgba(210,150,150,0.55);letter-spacing:2px;margin-bottom:40px;">
-            Hay cosas que se sienten pero son dif&iacute;ciles de decir.<br>Esto es un intento.
-          </div>
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 20px;position:relative;z-index:2;text-align:center;">
+      <div style="animation:fadeDown 1s ease forwards;">
+        <div class="date-badge" style="margin-bottom:14px;">22 &middot; 05 &middot; 2026</div>
+        <div class="title-main" style="font-size:clamp(40px,8vw,70px);">Para ti,</div>
+        <div class="title-sub" style="margin-top:10px;">Nicol con D <span class="heartbeat">&#129293;</span></div>
+        <div style="width:1px;height:50px;background:linear-gradient(to bottom,transparent,rgba(210,120,120,0.4),transparent);margin:28px auto;"></div>
+        <div style="font-family:Cormorant Garamond,serif;font-size:14px;font-style:italic;color:rgba(210,150,150,0.55);letter-spacing:2px;margin-bottom:48px;">
+          Hay cosas que se sienten pero son dif&iacute;ciles de decir.<br>Esto es un intento.
         </div>
+        <div id="btn-anchor"></div>
       </div>
     </div>
     ''', unsafe_allow_html=True)
+    col_l, col_c, col_r = st.columns([1,2,1])
+    with col_c:
+        if st.button("Abrir carta", key="carta_btn"):
+            st.session_state.step = 2
+            st.rerun()
 
 # ── STEP 2: Letter ──
 else:
@@ -232,7 +226,7 @@ else:
         + '<div class="divider-v" style="animation:fadeIn 1s 0.7s ease both;opacity:0;"></div>'
 
         # Music
-        + '<div class="music-container" style="animation:fadeUp 1s 0.9s ease both;opacity:0;"><iframe style="border-radius:2px" src="https://open.spotify.com/embed/track/3d9DChrdc4vJvg64yfBPKG?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>'
+        + '<div class="music-container" style="animation:fadeUp 1s 0.9s ease both;opacity:0;"><iframe width="100%" height="80" src="https://www.youtube.com/embed/2Vv-BfVoq4g?autoplay=1&controls=1" style="border:none;border-radius:4px;" allow="autoplay; encrypted-media" allowfullscreen title="musica romantica"></iframe></div>'
         + '<div class="divider-v" style="animation:fadeIn 1s 1.1s ease both;opacity:0;"></div>'
 
         # April calendar
@@ -243,14 +237,14 @@ else:
         + '<div class="intro-text" style="animation:fadeUp 1s 1.6s ease both;opacity:0;margin-top:40px;">Llegaste sin avisar &mdash; cuando yo ya hab&iacute;a levantado un muro tan alto<br>que ni recordaba por qu&eacute; lo constru&iacute;. Pero apareciste t&uacute;,<br>y con una calma que no entend&iacute; al principio, fuiste quitando cada piedra.<br><br>Cuando me di cuenta, ya &eacute;ramos solo nosotros.<br>Y eso ya era suficiente.</div>'
         + '<div class="divider-h" style="animation:fadeIn 1s 1.8s ease both;opacity:0;"></div>'
 
-        # Section I
-        + '<div class="section-card" style="animation:fadeUp 1s 2.0s ease both;opacity:0;"><div class="section-label">I</div><div class="section-title">T&Uacute;, con esa energ&iacute;a</div><div class="section-body">Esa que llevas sin esfuerzo &mdash; la que te sale sola, sin que lo intentes &mdash; me descoloca de una manera que no hab&iacute;a sentido antes. Me enamoras de una forma que no busqu&eacute; y que ahora no deseo parar.<br><br><em>Y lo m&aacute;s raro y lo m&aacute;s bonito</em> es que cada d&iacute;a que pasa, cuando creo que ya te conozco del todo, aparece algo nuevo en ti que me hace querer quedarme un poco m&aacute;s.<br><br>Cada d&iacute;a encuentro una raz&oacute;n nueva para admirarte. Y no creo que eso vaya a terminar pronto.</div></div>'
+        # Section I - primer gran encarte (FIRST)
+        + '<div class="section-card" style="animation:fadeUp 1s 2.0s ease both;opacity:0;"><div class="section-label">I</div><div class="section-title">T&Uacute;, mi primer gran encarte</div><div class="section-body">Soy tu primer gran encarte &mdash; y eso me hizo algo que no s&eacute; bien c&oacute;mo nombrar. No es orgullo. No es vanidad. Es m&aacute;s bien la sensaci&oacute;n de saber que <em>me escogiste t&uacute;</em>, con todo lo que eso significa.<br><br>Que de todas las personas y posibilidades, llegaste a m&iacute;. Y yo llegu&eacute; a ti. Y algo en eso se siente como si el universo supiera lo que hace.<br><br>Contigo puedo ser yo mismo. Contigo las cosas tienen sentido. Y eso, Nicol con D, vale m&aacute;s de lo que crees.</div></div>'
 
         # Section II
-        + '<div class="section-card" style="animation:fadeUp 1s 2.3s ease both;opacity:0;"><div class="section-label">II</div><div class="section-title">T&Uacute;, con esa forma de ser</div><div class="section-body">Tan tuya. Esa manera de notar lo que todos los dem&aacute;s dejan pasar, de darle peso a los detalles peque&ntilde;os que el mundo ignora. Eso me parece extraordinario. Eso me parece <em>t&uacute;</em>.<br><br>Y esos ojos &mdash; me pierdo en ellos como si fueran el &uacute;nico lugar donde de verdad s&eacute; d&oacute;nde estoy.<br><br>Y esa paz que traes contigo &mdash; esa que llega sin que la invite, que se instala adentro sin pedirme permiso &mdash; y me deja quieto. Completo. Como si con solo estar t&uacute; cerca, ya estuviera bien todo.</div></div>'
+        + '<div class="section-card" style="animation:fadeUp 1s 2.3s ease both;opacity:0;"><div class="section-label">II</div><div class="section-title">T&Uacute;, con esa energ&iacute;a</div><div class="section-body">Esa que llevas sin esfuerzo &mdash; la que te sale sola, sin que lo intentes &mdash; me descoloca de una manera que no hab&iacute;a sentido antes. Me enamoras de una forma que no busqu&eacute; y que ahora no deseo parar.<br><br><em>Y lo m&aacute;s raro y lo m&aacute;s bonito</em> es que cada d&iacute;a que pasa, cuando creo que ya te conozco del todo, aparece algo nuevo en ti que me hace querer quedarme un poco m&aacute;s.<br><br>Cada d&iacute;a encuentro una raz&oacute;n nueva para admirarte. Y no creo que eso vaya a terminar pronto.</div></div>'
 
         # Section III
-        + '<div class="section-card" style="animation:fadeUp 1s 2.6s ease both;opacity:0;"><div class="section-label">III</div><div class="section-title">T&Uacute;, mi primer gran encarte</div><div class="section-body">Dijiste que soy tu primer gran encarte, y eso me dio algo que no s&eacute; bien c&oacute;mo nombrar. Orgullo no es la palabra. Gratitud tampoco alcanza.<br><br>Es m&aacute;s bien esto: <em>la sensaci&oacute;n de que el universo se tom&oacute; su tiempo, y mand&oacute; a alguien que super&oacute; todo lo que podr&iacute;a haber imaginado.</em><br><br>Contigo puedo hacer las cosas bien. Contigo puedo ser yo mismo. Y eso, Nicol con D, vale m&aacute;s de lo que crees.</div></div>'
+        + '<div class="section-card" style="animation:fadeUp 1s 2.6s ease both;opacity:0;"><div class="section-label">III</div><div class="section-title">T&Uacute;, con esa forma de ser</div><div class="section-body">Tan tuya. Esa manera de notar lo que todos los dem&aacute;s dejan pasar, de darle peso a los detalles peque&ntilde;os que el mundo ignora. Eso me parece extraordinario. Eso me parece <em>t&uacute;</em>.<br><br>Y esos ojos &mdash; me pierdo en ellos como si fueran el &uacute;nico lugar donde de verdad s&eacute; d&oacute;nde estoy.<br><br>Y esa paz que traes contigo &mdash; esa que llega sin que la invite, que se instala adentro sin pedirme permiso &mdash; y me deja quieto. Completo. Como si con solo estar t&uacute; cerca, ya estuviera bien todo.</div></div>'
 
         + '<div class="divider-v" style="animation:fadeIn 1s 2.9s ease both;opacity:0;"></div>'
 
@@ -272,7 +266,7 @@ else:
 
         # Infinity + final message
         + '<div class="infinity-section" style="animation:fadeUp 1.2s 4.8s ease both;opacity:0;">'
-        + '<svg class="infinity-svg" width="80" height="44" viewBox="0 0 80 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M40 22C40 22 28 4 18 4C8 4 2 12 2 22C2 32 8 40 18 40C28 40 40 22 40 22ZM40 22C40 22 52 40 62 40C72 40 78 32 78 22C78 12 72 4 62 4C52 4 40 22 40 22Z" stroke="rgba(210,100,120,0.85)" stroke-width="2" fill="none" stroke-dasharray="1000" stroke-dashoffset="1000" style="animation:infinityDraw 2.5s 5.0s ease forwards;"/></svg>'
+
         + '<div class="final-message">No s&eacute; qu&eacute; va a pasar en el futuro.<br>No tengo esa respuesta ni pretendo tenerla.<br><br>Pero s&iacute; s&eacute; esto &mdash; con la misma certeza<br>con la que s&eacute; que el 20 de abril cambi&oacute; algo en m&iacute; &mdash;<br><br><em>quiero que est&eacute;s ah&iacute;.<br>Afrontando cada momento conmigo.<br>Los buenos, los dif&iacute;ciles, los que a&uacute;n no tienen nombre.</em><br><br>Eso es lo que s&eacute;.</div>'
         + '<div class="final-signature">Juan &#129293;</div>'
         + '<div class="final-date">20 &middot; 04 &middot; 2025 &rarr; 22 &middot; 05 &middot; 2026 &middot; Popay&aacute;n</div>'
