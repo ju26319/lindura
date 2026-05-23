@@ -22,7 +22,7 @@ html,body,[data-testid="stAppViewContainer"]{background:#080508;}
 [data-testid="stVerticalBlock"]>div{padding:0;gap:0;}
 
 /* Hide only the OPEN helper button */
-div[data-testid="stHorizontalBlock"]{display:none;}
+/* columns visible */
 
 /* Style ALL visible buttons elegantly */
 .stButton>button{
@@ -35,6 +35,254 @@ div[data-testid="stHorizontalBlock"]{display:none;}
   transition:all 0.5s ease;border-radius:0;
   display:block;margin:0 auto;
   position:relative;z-index:10;
+  width:auto;
+}
+.stButton>button:hover{
+  color:#f5d0d8;border-color:rgba(210,130,130,0.7);
+  letter-spacing:9px;
+}
+
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity:0.6;
+}
+
+.particles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+.particle{position:absolute;opacity:0;animation:floatUp linear infinite;user-select:none;}
+@keyframes floatUp{
+  0% {transform:translateY(100vh) rotate(0deg) scale(0.4);opacity:0;}
+  8% {opacity:0.7;}88% {opacity:0.25;}
+  100% {transform:translateY(-8vh) rotate(380deg) scale(1.3);opacity:0;}
+}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100% {transform:scale(1);}50% {transform:scale(1.08);}}
+@keyframes heartbeat{0%,100% {transform:scale(1);}14% {transform:scale(1.18);}28% {transform:scale(1);}42% {transform:scale(1.12);}56% {transform:scale(1);}}
+@keyframes glowPulse{0%,100% {text-shadow:0 0 20px rgba(200,80,100,0.4);}50% {text-shadow:0 0 50px rgba(200,80,100,0.8),0 0 80px rgba(200,80,100,0.3);}}
+@keyframes drawLine{from{width:0;}to{width:100%;}}
+@keyframes calFlip{0% {transform:perspective(600px) rotateX(90deg);opacity:0;}100% {transform:perspective(600px) rotateX(0);opacity:1;}}
+@keyframes infinityDraw{0% {stroke-dashoffset:1000;}100% {stroke-dashoffset:0;}}
+
+.wrap{position:relative;z-index:2;min-height:100vh;padding:60px 20px 100px;display:flex;flex-direction:column;align-items:center;}
+
+.init-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:90vh;gap:24px;}
+.init-logo{font-family:'Playfair Display',serif;font-size:72px;font-style:italic;color:#f0dde0;opacity:0;animation:fadeDown 1.2s 0.3s ease forwards;text-shadow:0 0 60px rgba(200,80,100,0.35);}
+.init-loading{display:flex;flex-direction:column;align-items:center;gap:16px;opacity:0;animation:fadeIn 1s 1.2s ease forwards;}
+.init-bar-wrap{width:220px;height:1px;background:rgba(210,120,120,0.15);position:relative;overflow:hidden;}
+.init-bar{height:1px;background:linear-gradient(to right,rgba(210,100,120,0.2),rgba(210,100,120,0.9),rgba(210,100,120,0.2));animation:drawLine 2.5s 1.4s ease forwards;width:0;}
+.init-text{font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:5px;color:rgba(210,130,130,0.5);text-transform:uppercase;}
+
+.cal-outer{opacity:0;animation:fadeUp 1s 0.2s ease forwards;width:100%;max-width:480px;margin:0 auto 48px;}
+.cal-header{background:rgba(200,60,90,0.12);border:1px solid rgba(210,120,120,0.18);border-bottom:none;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;}
+.cal-month{font-family:'Playfair Display',serif;font-size:22px;font-style:italic;color:#f0dde0;letter-spacing:1px;}
+.cal-year{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:4px;color:rgba(210,130,130,0.6);text-transform:uppercase;}
+.cal-grid{background:rgba(255,255,255,0.015);border:1px solid rgba(210,120,120,0.12);display:grid;grid-template-columns:repeat(7,1fr);}
+.cal-day-name{font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:3px;color:rgba(210,130,130,0.4);text-transform:uppercase;text-align:center;padding:12px 0 8px;border-bottom:1px solid rgba(210,120,120,0.08);}
+.cal-cell{font-family:'Cormorant Garamond',serif;font-size:15px;color:rgba(220,200,205,0.5);text-align:center;padding:14px 0;position:relative;border-right:1px solid rgba(210,120,120,0.05);border-bottom:1px solid rgba(210,120,120,0.05);min-height:48px;display:flex;align-items:center;justify-content:center;}
+.cal-cell.empty{color:transparent;}
+.cal-cell.highlighted{background:linear-gradient(135deg,rgba(200,60,90,0.35),rgba(160,30,60,0.25));color:#fff;font-weight:700;font-size:18px;border:1px solid rgba(210,100,120,0.5);box-shadow:0 0 20px rgba(200,60,90,0.3) inset,0 0 30px rgba(200,60,90,0.15);animation:calFlip 0.6s ease forwards;}
+.cal-cell.special-mark{background:rgba(200,80,100,0.08);color:rgba(235,200,210,0.7);}
+.cal-cell.infinity-cell{background:linear-gradient(135deg,rgba(200,60,90,0.3),rgba(100,20,50,0.4));border:1px solid rgba(210,100,120,0.6);box-shadow:0 0 30px rgba(200,60,90,0.4) inset;animation:calFlip 0.8s ease forwards;flex-direction:column;gap:2px;}
+
+.divider-v{width:1px;height:56px;background:linear-gradient(to bottom,transparent,rgba(210,120,120,0.4),transparent);margin:28px auto;}
+.divider-h{width:120px;height:1px;background:linear-gradient(to right,transparent,rgba(210,120,120,0.35),transparent);margin:0 auto 36px;}
+
+.title-main{font-family:'Playfair Display',serif;font-size:clamp(50px,9vw,82px);font-style:italic;font-weight:700;color:#f5e6e8;text-align:center;line-height:1;letter-spacing:-2px;text-shadow:0 0 60px rgba(200,80,100,0.3),0 2px 40px rgba(0,0,0,0.8);}
+.title-sub{font-family:'Dancing Script',cursive;font-size:clamp(22px,4vw,30px);color:rgba(210,130,130,0.85);text-align:center;margin-top:8px;letter-spacing:1px;}
+.date-badge{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:300;letter-spacing:5px;color:rgba(210,150,150,0.55);text-transform:uppercase;margin-bottom:10px;}
+.heartbeat{animation:heartbeat 2.5s ease infinite;display:inline-block;}
+.glow-pulse{animation:glowPulse 3s ease infinite;}
+
+.intro-text{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,2.8vw,21px);font-style:italic;font-weight:300;color:rgba(245,228,232,0.8);text-align:center;line-height:1.95;max-width:600px;margin:0 auto 44px;}
+
+.section-card{background:linear-gradient(135deg,rgba(255,255,255,0.025) 0%,rgba(200,80,100,0.04) 100%);border:1px solid rgba(210,120,120,0.11);padding:34px 38px;margin-bottom:22px;max-width:640px;width:100%;position:relative;overflow:hidden;backdrop-filter:blur(4px);}
+.section-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(to bottom,rgba(210,100,120,0.65),rgba(210,100,120,0.08));}
+.section-label{font-family:'Cormorant Garamond',serif;font-size:10px;font-weight:400;letter-spacing:6px;color:rgba(210,130,130,0.45);text-transform:uppercase;margin-bottom:14px;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,32px);font-style:italic;font-weight:700;color:#f0dde0;margin-bottom:18px;text-shadow:0 0 30px rgba(200,80,100,0.18);}
+.section-body{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,2.4vw,19px);font-weight:300;line-height:2.05;color:rgba(235,215,220,0.76);}
+.section-body em{font-style:italic;color:rgba(245,200,210,0.95);}
+
+.photo-frame{position:relative;max-width:320px;width:88%;margin:44px auto 0;}
+.photo-frame img{width:100%;display:block;border:1px solid rgba(210,120,120,0.14);box-shadow:0 0 0 7px rgba(8,5,8,0.92),0 0 0 8px rgba(210,120,120,0.07),0 40px 80px rgba(0,0,0,0.85),0 0 90px rgba(200,80,100,0.09);filter:sepia(12%) contrast(1.06) brightness(0.9);}
+.photo-caption{font-family:'Dancing Script',cursive;font-size:22px;color:rgba(210,150,150,0.65);text-align:center;margin-top:18px;letter-spacing:1px;}
+
+.infinity-section{max-width:600px;width:100%;text-align:center;margin-top:20px;padding:50px 30px 30px;}
+.infinity-svg{margin:0 auto 32px;display:block;}
+.final-message{font-family:'Cormorant Garamond',serif;font-size:clamp(19px,3vw,24px);font-style:italic;font-weight:300;color:rgba(245,228,232,0.88);line-height:1.9;text-align:center;max-width:520px;margin:0 auto;}
+.final-signature{font-family:'Dancing Script',cursive;font-size:30px;color:rgba(235,200,205,0.82);margin-top:32px;}
+.final-date{font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:4px;color:rgba(210,130,130,0.32);margin-top:10px;}
+
+.music-container{margin:28px auto 0;max-width:480px;width:100%;opacity:0.88;}
+</style>
+"""
+
+st.markdown(CSS, unsafe_allow_html=True)
+
+if "step" not in st.session_state:
+    st.session_state.step = 0
+
+
+
+# ── STEP 0: Initializing ──
+if st.session_state.step == 0:
+    st.markdown('''
+    <div class="wrap">
+      <div class="init-screen">
+        <div class="init-logo glow-pulse">&#9825;</div>
+        <div class="init-loading">
+          <div class="init-text">Inicializando&nbsp;&nbsp;&nbsp;</div>
+          <div class="init-bar-wrap"><div class="init-bar"></div></div>
+          <div class="init-text" style="font-size:10px;margin-top:4px;opacity:0.6;">preparando algo especial para ti</div>
+        </div>
+      </div>
+    </div>
+    ''', unsafe_allow_html=True)
+    time.sleep(4)
+    st.session_state.step = 1
+    st.rerun()
+
+# ── STEP 1: Button ──
+elif st.session_state.step == 1:
+    # Extra CSS to perfectly center the button
+    st.markdown('''
+    <style>
+    /* Force full page centering for step 1 */
+    [data-testid="stMainBlockContainer"] { padding: 0 !important; }
+    </style>
+    ''', unsafe_allow_html=True)
+    st.markdown('''
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 20px;position:relative;z-index:2;text-align:center;">
+      <div style="animation:fadeDown 1s ease forwards;">
+        <div class="date-badge" style="margin-bottom:14px;">22 &middot; 05 &middot; 2026</div>
+        <div class="title-main" style="font-size:clamp(40px,8vw,70px);">Para ti,</div>
+        <div class="title-sub" style="margin-top:10px;">Nicol con D <span class="heartbeat">&#129293;</span></div>
+        <div style="width:1px;height:50px;background:linear-gradient(to bottom,transparent,rgba(210,120,120,0.4),transparent);margin:28px auto;"></div>
+        <div style="font-family:Cormorant Garamond,serif;font-size:14px;font-style:italic;color:rgba(210,150,150,0.55);letter-spacing:2px;margin-bottom:48px;">
+          Hay cosas que se sienten pero son dif&iacute;ciles de decir.<br>Esto es un intento.
+        </div>
+        <div id="btn-anchor"></div>
+      </div>
+    </div>
+    ''', unsafe_allow_html=True)
+    # Inject CSS to center just this button
+    st.markdown('''
+    <style>
+    div[data-testid="stMainBlockContainer"] > div > div > div > div > div[data-testid="stVerticalBlock"] > div:last-child {
+        display: flex !important;
+        justify-content: center !important;
+    }
+    </style>
+    ''', unsafe_allow_html=True)
+    if st.button("Abrir carta", key="carta_btn"):
+        st.session_state.step = 2
+        st.rerun()
+
+# ── STEP 2: Letter ──
+else:
+    def build_calendar(month_name, year, start_dow, total_days, highlight_day, extra_marks=None, infinity_day=None):
+        if extra_marks is None:
+            extra_marks = []
+        days_names = ["L","M","M","J","V","S","D"]
+        inf_svg = '<svg width="16" height="9" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:2px auto 0;"><path d="M9 5C9 5 6.5 1.5 4.5 1.5C2.5 1.5 1 3 1 5C1 7 2.5 8.5 4.5 8.5C6.5 8.5 9 5 9 5ZM9 5C9 5 11.5 8.5 13.5 8.5C15.5 8.5 17 7 17 5C17 3 15.5 1.5 13.5 1.5C11.5 1.5 9 5 9 5Z" stroke="rgba(210,130,130,0.9)" stroke-width="1.4" fill="none" stroke-dasharray="1000" stroke-dashoffset="1000" style="animation:infinityDraw 2.5s 0.5s ease forwards;"/></svg>'
+
+        html = '<div class="cal-outer"><div class="cal-header"><div class="cal-month">' + month_name + '</div><div class="cal-year">' + str(year) + '</div></div><div class="cal-grid">'
+        for d in days_names:
+            html += '<div class="cal-day-name">' + d + '</div>'
+        for _ in range(start_dow):
+            html += '<div class="cal-cell empty"></div>'
+        for day in range(1, total_days + 1):
+            cls = "cal-cell"
+            content = str(day)
+            if day == highlight_day:
+                cls += " highlighted"
+            elif infinity_day and day == infinity_day:
+                cls += " infinity-cell"
+                content = str(day) + inf_svg
+            elif day in extra_marks:
+                cls += " special-mark"
+            html += '<div class="' + cls + '">' + content + '</div>'
+        html += '</div></div>'
+        return html
+
+    apr_cal  = build_calendar("Abril", 2025, 1, 30, 20)
+    may_cal  = build_calendar("Mayo",  2025, 3, 31, 22)
+    may_inf  = build_calendar("Mayo",  2025, 3, 31, 22, infinity_day=22)
+
+    particles = '<div class="particles">'
+    emojis = ["&#9825;","&#10022;","&middot;","&deg;","&#9825;","&#10023;","&#9825;","&#8902;"]
+    for i in range(24):
+        e = emojis[i % len(emojis)]
+        left = (i * 41 + 7) % 97
+        delay = (i * 1.4) % 16
+        dur = 9 + (i * 1.9) % 11
+        sz = 9 + (i * 3) % 10
+        particles += '<span class="particle" style="left:' + str(left) + '%;font-size:' + str(sz) + 'px;animation-delay:' + str(delay) + 's;animation-duration:' + str(dur) + 's;">' + e + '</span>'
+    particles += '</div>'
+
+    st.markdown(particles, unsafe_allow_html=True)
+
+    letter_html = (
+        '<div class="wrap">'
+
+        # Header
+        + '<div class="date-badge" style="animation:fadeDown 1s 0.1s ease both;opacity:0;">20 de Abril &mdash; El d&iacute;a que empez&oacute; todo</div>'
+        + '<div class="title-main glow-pulse" style="animation:fadeDown 1.2s 0.3s ease both;opacity:0;">T&Uacute;</div>'
+        + '<div class="title-sub" style="animation:fadeDown 1s 0.5s ease both;opacity:0;">Nicol con D <span class="heartbeat">&#129293;</span></div>'
+        + '<div class="divider-v" style="animation:fadeIn 1s 0.7s ease both;opacity:0;"></div>'
+
+        # Music
+        + '<div class="music-container" style="animation:fadeUp 1s 0.9s ease both;opacity:0;"><iframe width="100%" height="80" src="https://www.youtube.com/embed/2Vv-BfVoq4g?autoplay=1&controls=1" style="border:none;border-radius:4px;" allow="autoplay; encrypted-media" allowfullscreen title="musica romantica"></iframe></div>'
+        + '<div class="divider-v" style="animation:fadeIn 1s 1.1s ease both;opacity:0;"></div>'
+
+        # April calendar
+        + '<div style="animation:fadeUp 1s 1.3s ease both;opacity:0;width:100%;max-width:480px;margin:0 auto 16px;"><div style="font-family:Cormorant Garamond,serif;font-size:11px;letter-spacing:5px;color:rgba(210,130,130,0.45);text-transform:uppercase;text-align:center;margin-bottom:18px;">Aqu&iacute; comenz&oacute; todo</div>'
+        + apr_cal + '</div>'
+
+        # Intro
+        + '<div class="intro-text" style="animation:fadeUp 1s 1.6s ease both;opacity:0;margin-top:40px;">Llegaste sin avisar &mdash; cuando yo ya hab&iacute;a levantado un muro tan alto<br>que ni recordaba por qu&eacute; lo constru&iacute;. Pero apareciste t&uacute;,<br>y con una calma que no entend&iacute; al principio, fuiste quitando cada piedra.<br><br>Cuando me di cuenta, ya &eacute;ramos solo nosotros.<br>Y eso ya era suficiente.</div>'
+        + '<div class="divider-h" style="animation:fadeIn 1s 1.8s ease both;opacity:0;"></div>'
+
+        # Section I - primer gran encarte (FIRST)
+        + '<div class="section-card" style="animation:fadeUp 1s 2.0s ease both;opacity:0;"><div class="section-label">I</div><div class="section-title">T&Uacute;, mi primer gran encarte</div><div class="section-body">Soy tu primer gran encarte &mdash; y eso me hizo algo que no s&eacute; bien c&oacute;mo nombrar. No es orgullo. No es vanidad. Es m&aacute;s bien la sensaci&oacute;n de saber que <em>me escogiste t&uacute;</em>, con todo lo que eso significa.<br><br>Que de todas las personas y posibilidades, llegaste a m&iacute;. Y yo llegu&eacute; a ti. Y algo en eso se siente como si el universo supiera lo que hace.<br><br>Contigo puedo ser yo mismo. Contigo las cosas tienen sentido. Y eso, Nicol con D, vale m&aacute;s de lo que crees.</div></div>'
+
+        # Section II
+        + '<div class="section-card" style="animation:fadeUp 1s 2.3s ease both;opacity:0;"><div class="section-label">II</div><div class="section-title">T&Uacute;, con esa energ&iacute;a</div><div class="section-body">Esa que llevas sin esfuerzo &mdash; la que te sale sola, sin que lo intentes &mdash; me descoloca de una manera que no hab&iacute;a sentido antes. Me enamoras de una forma que no busqu&eacute; y que ahora no deseo parar.<br><br><em>Y lo m&aacute;s raro y lo m&aacute;s bonito</em> es que cada d&iacute;a que pasa, cuando creo que ya te conozco del todo, aparece algo nuevo en ti que me hace querer quedarme un poco m&aacute;s.<br><br>Cada d&iacute;a encuentro una raz&oacute;n nueva para admirarte. Y no creo que eso vaya a terminar pronto.</div></div>'
+
+        # Section III
+        + '<div class="section-card" style="animation:fadeUp 1s 2.6s ease both;opacity:0;"><div class="section-label">III</div><div class="section-title">T&Uacute;, con esa forma de ser</div><div class="section-body">Tan tuya. Esa manera de notar lo que todos los dem&aacute;s dejan pasar, de darle peso a los detalles peque&ntilde;os que el mundo ignora. Eso me parece extraordinario. Eso me parece <em>t&uacute;</em>.<br><br>Y esos ojos &mdash; me pierdo en ellos como si fueran el &uacute;nico lugar donde de verdad s&eacute; d&oacute;nde estoy.<br><br>Y esa paz que traes contigo &mdash; esa que llega sin que la invite, que se instala adentro sin pedirme permiso &mdash; y me deja quieto. Completo. Como si con solo estar t&uacute; cerca, ya estuviera bien todo.</div></div>'
+
+        + '<div class="divider-v" style="animation:fadeIn 1s 2.9s ease both;opacity:0;"></div>'
+
+        # May calendar
+        + '<div style="animation:fadeUp 1s 3.0s ease both;opacity:0;width:100%;max-width:480px;margin:0 auto 16px;"><div style="font-family:Cormorant Garamond,serif;font-size:11px;letter-spacing:5px;color:rgba(210,130,130,0.45);text-transform:uppercase;text-align:center;margin-bottom:18px;">Y aqu&iacute; estamos hoy</div>'
+        + may_cal + '</div>'
+
+        # Photo
+        + '<div class="photo-frame" style="animation:fadeIn 1.5s 3.4s ease both;opacity:0;"><img src="data:image/png;base64,'
+        + PHOTO_B64
+        + '" alt="Nicol con D"></div>'
+        + '<div class="photo-caption" style="animation:fadeIn 1s 4.0s ease both;opacity:0;">la persona que lleg&oacute; sin avisar &#129293;</div>'
+
+        + '<div class="divider-v" style="animation:fadeIn 1s 4.2s ease both;opacity:0;"></div>'
+
+        # May infinity calendar
+        + '<div style="animation:fadeUp 1s 4.4s ease both;opacity:0;width:100%;max-width:480px;margin:0 auto 16px;"><div style="font-family:Cormorant Garamond,serif;font-size:11px;letter-spacing:5px;color:rgba(210,130,130,0.45);text-transform:uppercase;text-align:center;margin-bottom:18px;">Lo que viene</div>'
+        + may_inf + '</div>'
+
+        # Infinity + final message
+        + '<div class="infinity-section" style="animation:fadeUp 1.2s 4.8s ease both;opacity:0;">'
+
+        + '<div class="final-message">No s&eacute; qu&eacute; va a pasar en el futuro.<br>No tengo esa respuesta ni pretendo tenerla.<br><br>Pero s&iacute; s&eacute; esto &mdash; con la misma certeza<br>con la que s&eacute; que el 20 de abril cambi&oacute; algo en m&iacute; &mdash;<br><br><em>quiero que est&eacute;s ah&iacute;.<br>Afrontando cada momento conmigo.<br>Los buenos, los dif&iacute;ciles, los que a&uacute;n no tienen nombre.</em><br><br>Eso es lo que s&eacute;.</div>'
+        + '<div class="final-signature">Juan &#129293;</div>'
+        + '<div class="final-date">20 &middot; 04 &middot; 2025 &rarr; 22 &middot; 05 &middot; 2026 &middot; Popay&aacute;n</div>'
+        + '</div>'
+
+        + '</div>'
+    )
+
+    st.markdown(letter_html, unsafe_allow_html=True)  position:relative;z-index:10;
   width:auto;
 }
 .stButton>button:hover{
