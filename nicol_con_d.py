@@ -21,22 +21,25 @@ html,body,[data-testid="stAppViewContainer"]{background:#080508;}
 [data-testid="stMainBlockContainer"]{padding:0;max-width:800px;}
 [data-testid="stVerticalBlock"]>div{padding:0;gap:0;}
 
-/* Hide the helper columns buttons */
-div[data-testid="stHorizontalBlock"] .stButton>button{display:none;}
+/* Hide only the OPEN helper button */
+div[data-testid="stHorizontalBlock"]{display:none;}
 
-/* Style the real open button */
+/* Style ALL visible buttons elegantly */
 .stButton>button{
   font-family:'Cormorant Garamond',serif;
   font-size:13px;font-weight:400;letter-spacing:6px;
   color:rgba(210,130,130,0.85);text-transform:uppercase;
-  background:none;border:1px solid rgba(210,130,130,0.3);
+  background:transparent;
+  border:1px solid rgba(210,130,130,0.3);
   padding:18px 52px;cursor:pointer;
   transition:all 0.5s ease;border-radius:0;
   display:block;margin:0 auto;
+  position:relative;z-index:10;
+  width:auto;
 }
 .stButton>button:hover{
   color:#f5d0d8;border-color:rgba(210,130,130,0.7);
-  background:rgba(210,100,120,0.07);letter-spacing:9px;
+  letter-spacing:9px;
 }
 
 body::before{
@@ -120,11 +123,7 @@ st.markdown(CSS, unsafe_allow_html=True)
 if "step" not in st.session_state:
     st.session_state.step = 0
 
-# Hidden helper buttons in columns (invisible)
-col1, col2, col3 = st.columns([1,2,1])
-with col2:
-    if st.button("OPEN", key="open_btn"):
-        st.session_state.step = 2
+
 
 # ── STEP 0: Initializing ──
 if st.session_state.step == 0:
@@ -161,7 +160,7 @@ elif st.session_state.step == 1:
       </div>
     </div>
     ''', unsafe_allow_html=True)
-    if st.button("&#9825;  Abrir carta  &#9825;", key="carta_btn"):
+    if st.button("Abrir carta", key="carta_btn"):
         st.session_state.step = 2
         st.rerun()
 
