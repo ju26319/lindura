@@ -145,9 +145,26 @@ if st.session_state.step == 0:
 
 # ── STEP 1: Button ──
 elif st.session_state.step == 1:
+    # Button FIRST - then CSS positions it fixed over the background
     st.markdown('''
-    <div class="wrap">
-      <div class="init-screen">
+    <style>
+    /* Make the button fixed centered on screen, above everything */
+    section[data-testid="stMain"] > div > div > div > div:nth-child(2) .stButton {
+        position:fixed;
+        bottom: 15vh;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+        width: auto;
+    }
+    </style>
+    ''', unsafe_allow_html=True)
+    if st.button("Abrir carta", key="carta_btn"):
+        st.session_state.step = 2
+        st.rerun()
+    st.markdown('''
+    <div class="wrap" style="pointer-events:none;">
+      <div class="init-screen" style="justify-content:flex-start;padding-top:20vh;">
         <div style="text-align:center;animation:fadeDown 1s ease forwards;">
           <div class="date-badge" style="margin-bottom:14px;">22 &middot; 05 &middot; 2026</div>
           <div class="title-main" style="font-size:clamp(40px,8vw,70px);">Para ti,</div>
@@ -160,9 +177,6 @@ elif st.session_state.step == 1:
       </div>
     </div>
     ''', unsafe_allow_html=True)
-    if st.button("Abrir carta", key="carta_btn"):
-        st.session_state.step = 2
-        st.rerun()
 
 # ── STEP 2: Letter ──
 else:
