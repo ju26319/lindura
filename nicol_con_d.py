@@ -1,4 +1,5 @@
 import streamlit as st
+import time
 
 st.set_page_config(page_title="Nicol con D 🤍", page_icon="🤍", layout="centered")
 
@@ -188,13 +189,10 @@ if st.session_state.step == 0:
         </div>
       </div>
     </div>
-    <script>
-    setTimeout(function(){
-      var btns = window.parent.document.querySelectorAll('button');
-      btns.forEach(function(b){ if(b.innerText==='INIT') b.click(); });
-    }, 4500);
-    </script>
     """, unsafe_allow_html=True)
+    time.sleep(4)
+    st.session_state.step = 1
+    st.rerun()
 
 # ─────────────────────────────────────────────
 # STEP 1 — Button screen
