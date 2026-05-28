@@ -31,15 +31,32 @@ if st.session_state.step == 0:
 
 elif st.session_state.step == 1:
     st.markdown('''
-    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:65vh;padding:40px 20px;text-align:center;animation:pageFlip 0.8s ease forwards;">
+    <style>
+    [data-testid="stMainBlockContainer"] { padding-top: 0 !important; }
+    </style>
+    <div style="position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:2;pointer-events:none;animation:pageFlip 0.8s ease forwards;">
       <div class="date-badge" style="margin-bottom:14px;">22 &middot; 05 &middot; 2026</div>
       <div class="title-main" style="font-size:clamp(40px,8vw,70px);">Para ti,</div>
       <div class="title-sub" style="margin-top:10px;">Nicol con D <span class="heartbeat">&#129293;</span></div>
       <div style="width:1px;height:40px;background:linear-gradient(to bottom,transparent,rgba(210,120,120,0.4),transparent);margin:20px auto;"></div>
-      <div style="font-family:Cormorant Garamond,serif;font-size:14px;font-style:italic;color:rgba(210,150,150,0.55);letter-spacing:2px;margin-bottom:28px;">
+      <div style="font-family:Cormorant Garamond,serif;font-size:14px;font-style:italic;color:rgba(210,150,150,0.55);letter-spacing:2px;margin-bottom:36px;">
         Hay cosas que se sienten pero son dif&iacute;ciles de decir.<br>Esto es un intento.
       </div>
     </div>
+    <div style="height:100vh;"></div>
+    ''', unsafe_allow_html=True)
+    st.markdown('''
+    <style>
+    /* Position the carta button absolutely centered */
+    section[data-testid="stMain"] > div { position: static !important; }
+    div[data-testid="stVerticalBlock"] > div:last-child .stButton {
+        position: fixed;
+        bottom: 12vh;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+    }
+    </style>
     ''', unsafe_allow_html=True)
     if st.button("Abrir carta", key="carta_btn"):
         st.session_state.step = 2
@@ -115,11 +132,21 @@ elif st.session_state.step == 2:
         + '</div>'
     )
     st.markdown(html, unsafe_allow_html=True)
-    st.markdown('<div style="display:flex;justify-content:center;margin-top:32px;margin-bottom:40px;">', unsafe_allow_html=True)
-    if st.button("Siguiente \u2192", key="next_btn"):
+    st.markdown('''
+    <style>
+    div[data-testid="stVerticalBlock"] > div:last-child .stButton {
+        position: fixed;
+        bottom: 6vh;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+    }
+    </style>
+    <div style="height:120px;"></div>
+    ''', unsafe_allow_html=True)
+    if st.button("Siguiente →", key="next_btn"):
         st.session_state.step = 3
         st.rerun()
-    st.markdown('</div>', unsafe_allow_html=True)
 
 else:
     def build_cal2(month, year, start, total, highlights):
@@ -154,24 +181,35 @@ else:
         + '<div class="title-main glow-pulse" style="animation:fadeDown 1.2s 0.2s ease both;opacity:0;font-size:clamp(32px,6vw,58px);">Nicol con D <span class="heartbeat">&#129293;</span></div>'
         + '<div class="divider-v" style="animation:fadeIn 1s 0.4s ease both;opacity:0;"></div>'
         + '<div class="music-container" style="animation:fadeUp 1s 0.5s ease both;opacity:0;"><iframe width="100%" height="80" src="https://www.youtube.com/embed/2Vv-BfVoq4g?autoplay=1" style="border:none;border-radius:4px;" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>'
-        + '<div class="divider-v" style="animation:fadeIn 1s 0.4s ease both;opacity:0;"></div>'
-        + '<div style="animation:fadeUp 1s 0.6s ease both;opacity:0;width:100%;max-width:480px;margin:0 auto 16px;"><div style="font-family:Cormorant Garamond,serif;font-size:11px;letter-spacing:5px;color:rgba(210,130,130,0.45);text-transform:uppercase;text-align:center;margin-bottom:18px;">27 de Mayo &middot; 2026</div>'
+        + '<div class="divider-v" style="animation:fadeIn 1s 0.7s ease both;opacity:0;"></div>'
+        + '<div class="page4-title" style="animation:fadeDown 1s 0.9s ease both;opacity:0;">La m&aacute;s linda</div>'
+        + '<div class="divider-v" style="animation:fadeIn 1s 1.0s ease both;opacity:0;"></div>'
+        + '<div style="animation:fadeUp 1s 1.1s ease both;opacity:0;width:100%;max-width:480px;margin:0 auto 16px;"><div style="font-family:Cormorant Garamond,serif;font-size:11px;letter-spacing:5px;color:rgba(210,130,130,0.45);text-transform:uppercase;text-align:center;margin-bottom:18px;">27 de Mayo &middot; 2026</div>'
         + may27 + '</div>'
-        + '<div class="section-card" style="animation:fadeUp 1s 1.0s ease both;opacity:0;"><div class="section-body">Gracias a ti, he vivido cosas que no sab&iacute;a que me faltaban. Me ense&ntilde;aste una forma de amar sin igual, llegaste cuando el amor se hab&iacute;a vuelto rutina y lo cambiaste todo sin pedirme permiso.<br><br>Gracias a ti, he sentido nuestro amor de una manera que no cre&iacute;a posible. Has hecho en m&iacute; algo que no s&eacute; c&oacute;mo explicar del todo, y creo que no quiero intentarlo. <em>Prefiero seguir sinti&eacute;ndolo.</em></div></div>'
-        + '<div class="divider-v" style="animation:fadeIn 1s 1.4s ease both;opacity:0;"></div>'
-        + '<div class="page4-title" style="animation:fadeDown 1s 1.6s ease both;opacity:0;">La m&aacute;s linda</div>'
-        + '<div style="animation:fadeUp 1s 1.8s ease both;opacity:0;width:100%;max-width:480px;margin:16px auto 16px;"><div style="font-family:Cormorant Garamond,serif;font-size:11px;letter-spacing:5px;color:rgba(210,130,130,0.45);text-transform:uppercase;text-align:center;margin-bottom:18px;">28 de Mayo &middot; 2026</div>'
+        + '<div class="section-card" style="animation:fadeUp 1s 1.5s ease both;opacity:0;"><div class="section-body">Gracias a ti, he vivido cosas que no sab&iacute;a que me faltaban. Me ense&ntilde;aste una forma de amar sin igual, llegaste cuando el amor se hab&iacute;a vuelto rutina y lo cambiaste todo sin pedirme permiso.<br><br>Gracias a ti, he sentido nuestro amor de una manera que no cre&iacute;a posible. Has hecho en m&iacute; algo que no s&eacute; c&oacute;mo explicar del todo, y creo que no quiero intentarlo. <em>Prefiero seguir sinti&eacute;ndolo.</em></div></div>'
+        + '<div class="divider-v" style="animation:fadeIn 1s 1.9s ease both;opacity:0;"></div>'
+        + '<div style="animation:fadeUp 1s 2.0s ease both;opacity:0;width:100%;max-width:480px;margin:0 auto 16px;"><div style="font-family:Cormorant Garamond,serif;font-size:11px;letter-spacing:5px;color:rgba(210,130,130,0.45);text-transform:uppercase;text-align:center;margin-bottom:18px;">28 de Mayo &middot; 2026</div>'
         + may28 + '</div>'
-        + '<div class="video-box" style="animation:fadeUp 1s 2.2s ease both;opacity:0;"><div class="video-box-face">&#128533;</div><div class="video-box-text">Aqu&iacute; iba el video que te ped&iacute;</div></div>'
-        + '<div class="section-card" style="animation:fadeUp 1s 2.6s ease both;opacity:0;"><div class="section-body">Mir&aacute;, otro d&iacute;a m&aacute;s el cual solo quiero que seas t&uacute;, pensando en ti en todo momento, deseando estar contigo.<br><br>Cada vez que recuerdo los momentos contigo, cada d&iacute;a que te veo, pienso: <em>esta es la mujer que quiero a mi lado.</em><br><br>Mir&aacute;, otro d&iacute;a m&aacute;s eligi&eacute;ndote.</div></div>'
-        + '<div class="divider-v" style="animation:fadeIn 1s 3.0s ease both;opacity:0;"></div>'
-        + '<div class="posdata-section" style="animation:fadeUp 1s 3.2s ease both;opacity:0;"><div class="posdata-label">Posdata</div><div class="posdata-body">Cada experiencia contigo llena cada parte de m&iacute;, me pone muy feliz y solo quiero seguir contigo.<br><br>Fui el primero en descubrir ese lugar donde el tiempo se detiene, el primero en saber c&oacute;mo sabe tu sonrisa cuando se convierte en beso. Eso no se olvida. Eso se lleva.</div></div>'
-        + '<div class="final-date" style="animation:fadeIn 1s 3.6s ease both;opacity:0;margin-top:40px;">27 &middot; 05 &middot; 2026 &rarr; 28 &middot; 05 &middot; 2026 &middot; Popay&aacute;n</div>'
+        + '<div class="video-box" style="animation:fadeUp 1s 2.4s ease both;opacity:0;"><div class="video-box-face">&#128533;</div><div class="video-box-text">Aqu&iacute; iba el video que te ped&iacute;</div></div>'
+        + '<div class="section-card" style="animation:fadeUp 1s 2.8s ease both;opacity:0;"><div class="section-body">Mir&aacute;, otro d&iacute;a m&aacute;s el cual solo quiero que seas t&uacute;, pensando en ti en todo momento, deseando estar contigo.<br><br>Cada vez que recuerdo los momentos contigo, cada d&iacute;a que te veo, pienso: <em>esta es la mujer que quiero a mi lado.</em><br><br>Mir&aacute;, otro d&iacute;a m&aacute;s eligi&eacute;ndote.</div></div>'
+        + '<div class="divider-v" style="animation:fadeIn 1s 3.2s ease both;opacity:0;"></div>'
+        + '<div class="posdata-section" style="animation:fadeUp 1s 3.4s ease both;opacity:0;"><div class="posdata-label">Posdata</div><div class="posdata-body">Cada experiencia contigo llena cada parte de m&iacute;, me pone muy feliz y solo quiero seguir contigo.<br><br>Fui el primero en descubrir ese lugar donde el tiempo se detiene, el primero en saber c&oacute;mo sabe tu sonrisa cuando se convierte en beso. Eso no se olvida. Eso se lleva.</div></div>'
+        + '<div class="final-date" style="animation:fadeIn 1s 3.8s ease both;opacity:0;margin-top:40px;">27 &middot; 05 &middot; 2026 &rarr; 28 &middot; 05 &middot; 2026 &middot; Popay&aacute;n</div>'
         + '</div>'
     )
     st.markdown(html4, unsafe_allow_html=True)
-    st.markdown('<div style="display:flex;justify-content:center;margin-top:16px;margin-bottom:40px;">', unsafe_allow_html=True)
+    st.markdown('''
+    <style>
+    div[data-testid="stVerticalBlock"] > div:last-child .stButton {
+        position: fixed;
+        bottom: 6vh;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+    }
+    </style>
+    <div style="height:120px;"></div>
+    ''', unsafe_allow_html=True)
     if st.button("\u2190 Atr\u00e1s", key="back_btn"):
         st.session_state.step = 2
         st.rerun()
-    st.markdown('</div>', unsafe_allow_html=True)
